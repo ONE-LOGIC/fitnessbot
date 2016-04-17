@@ -9,6 +9,22 @@ import pickle
 import os.path
 import datetime
 
+from slackclient import SlackClient
+
+token = settings.token
+sc = SlackClient(token)
+print sc.api_call("api.test")
+print sc.api_call("auth.test")
+print sc.api_call("im.open", user="U0LHMGMPW")
+
+
+print sc.api_call("channels.info", channel="1234567890")
+print sc.api_call(
+    "chat.postMessage", channel="#fitness", text="Hello from your new fitnessbot! :muscle:",
+    username='fitnessbot', icon_emoji=':unicorn_face:'
+)
+
+
 from User import User
 
 # Environment variables must be set with your tokens
@@ -145,7 +161,7 @@ def fetchActiveUsers(bot):
 
 '''
 Selects an exercise and start time, and sleeps until the time
-period has past.
+period has passed.
 '''
 def selectExerciseAndStartTime(bot):
     next_time_interval = selectNextTimeInterval(bot)
